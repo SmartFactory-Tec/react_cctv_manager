@@ -16,7 +16,7 @@ const DashboardSidebar = () => {
         className="py-2"
         menuItemStyles={{
           button: {
-            // the active class will be added automatically by react router
+            // The active class will be added automatically by react router
             // so we can use it to style the active menu item
             [`&.active`]: {
               backgroundColor: "#13395e",
@@ -25,16 +25,16 @@ const DashboardSidebar = () => {
           },
         }}
       >
-        <MenuItem component={<Link to="/documentation" />}>
+        <MenuItem component={<Link to="/cameras" />}>
           <FontAwesomeIcon icon={faCamera} className="me-2" /> Cameras
         </MenuItem>
-        <MenuItem component={<Link to="/calendar" />}>
+        <MenuItem component={<Link to="/management" />}>
           <FontAwesomeIcon icon={faPersonWalking} className="me-2" /> Management
         </MenuItem>
         <MenuItem component={<Link to="/authentication" />}>
           <FontAwesomeIcon icon={faLock} className="me-2" /> Authentication
         </MenuItem>
-        <MenuItem component={<Link to="/e-commerce" />}>
+        <MenuItem component={<Link to="/history" />}>
           <FontAwesomeIcon icon={faChartSimple} className="me-2" /> History
         </MenuItem>
       </Menu>
