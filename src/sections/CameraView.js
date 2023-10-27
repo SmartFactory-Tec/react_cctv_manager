@@ -1,17 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Spinner } from "react-bootstrap";
 import { parseCameraData } from "../utils/apiUtils";
+
+import CameraCanvas from "../components/camera/CameraCanvas.js";
+import "./CameraView.css";
 
 const CameraView = () => {
   const [cameraData, setCameraData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const canvasRefs = useRef([]);
 
   useEffect(() => {
+    // Update the loading state based on whether cameraData is empty or not
+    setIsLoading(cameraData.length === 0);
+
     // Iterate through the cameraData array and render each camera frame onto the corresponding canvas
     cameraData.forEach((camera, i) => {
       const { camera_id, frame } = camera;
-
-      // Call the function to parse and render the camera frame data onto the respective canvas
       return parseCameraData(frame, canvasRefs.current[camera_id]);
     });
   }, [cameraData]);
@@ -38,26 +44,43 @@ const CameraView = () => {
   }, []);
 
   return (
-    <Col xs={10} className="px-4">
-      <Row>
-        {cameraData.map((camera, i) => {
-          console.log(canvasRefs.current[i]);
+    <Row className="h-100 w-100">
+      <Col xs={12} className="w-100">
+        <h3>{/*Title*/}</h3>
+      </Col>
+      {/*
+        Conditional rendering based on the isLoading state.
+        If isLoading is true, display a loading spinner and a loading message.
+        Otherwise, render nothing (null).
+      */}
+      {isLoading ? (
+        <Col
+          className="text-center spinner-column"
+          style={{ color: "#525E6D !important" }}
+        >
+          <Spinner />
+          <p style={{ fontSize: "22px", fontWeight: "600" }} className="mt-2">
+            Loading...
+          </p>
+        </Col>
+      ) : null}
 
-          return (
-            <Col xs={6}>
-              <canvas
-                key={"camera_" + i}
-                ref={(ref) => {
-                  canvasRefs.current[i] = ref;
-                }}
-                width={720}
-                height={480}
-              />
-            </Col>
-          );
-        })}
-      </Row>
-    </Col>
+      {/*
+        Map over the cameraData array to render each camera canvas.
+        Set up the CameraCanvas component with a unique innerRef for each canvas.
+      */}
+      {cameraData.map((camera, i) => {
+        return (
+          <Col xs={6} key={i}>
+            <CameraCanvas
+              innerRef={(ref) => {
+                canvasRefs.current[i] = ref;
+              }}
+            />
+          </Col>
+        );
+      })}
+    </Row>
   );
 };
 

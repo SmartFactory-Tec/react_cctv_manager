@@ -1,22 +1,4 @@
-.ps-sidebar-container {
-  border-radius: 16px;
-
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
-    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-}
-
-.css-1wvake5 {
-  border-right-width: 0px !important;
-}
-
-.ps-menu-button {
-  color: #c5c8cb !important;
-  font-weight: 600;
-  font-size: 16px !important;
-
-  transition: all 0.2s ease-in-out;
-}
-
-.ps-menu-button:hover {
-  background-color: #c5c8cb20 !important;
+h3 {
+  color: #2c3541 !important;
+  font-weight: 600 !important;
 }

@@ -8,12 +8,13 @@ import {
   faPersonWalking,
   faChartSimple,
 } from "@fortawesome/free-solid-svg-icons";
+import "./Sidebar.css";
 
 const DashboardSidebar = () => {
   return (
     <Sidebar className="h-100 w-100" backgroundColor="#2C3541">
       <Menu
-        className="py-2"
+        className="py-4"
         menuItemStyles={{
           button: {
             // The active class will be added automatically by react router
