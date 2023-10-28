@@ -15,32 +15,39 @@ const CameraView = () => {
     // Update the loading state based on whether cameraData is empty or not
     setIsLoading(cameraData.length === 0);
 
-    // Iterate through the cameraData array and render each camera frame onto the corresponding canvas
     cameraData.forEach((camera, i) => {
-      const { camera_id, frame } = camera;
-      return parseCameraData(frame, canvasRefs.current[camera_id]);
+      try {
+        const { camera_id, frame } = camera;
+        return parseCameraData(frame, canvasRefs.current[camera_id]);
+      } catch (error) {
+        console.error("Camera was not found.", error);
+      }
     });
   }, [cameraData]);
 
   useEffect(() => {
-    // Establish a WebSocket connection with the provided URL
-    const socket = new WebSocket("ws://127.0.0.1:8000/ws/router/");
+    // TODO Get URLs from a GET request to the database
+    const ids = [0, 1, 2, 3];
 
-    // Handle incoming messages from the WebSocket server
-    socket.onmessage = (event) => {
-      const data = JSON.parse(event.data); // Parse the JSON data
-      setCameraData((prevData) => {
-        // Create a new array based on the previous data and add the new data
-        const newData = [...prevData];
-        newData[data.camera_id] = data;
-        return newData;
-      });
-    };
+    ids.forEach((id) => {
+      const socket = new WebSocket(`ws://127.0.0.1:8000/ws/router/${id}/`);
 
-    // Close the WebSocket connection when the component is unmounted
-    return () => {
-      socket.close();
-    };
+      socket.onmessage = (event) => {
+        // Parse the JSON data
+        const data = JSON.parse(event.data);
+
+        setCameraData((prevData) => {
+          const newData = [...prevData];
+          newData[data.camera_id] = data;
+          return newData;
+        });
+      };
+
+      // Close the WebSocket connection when the component is unmounted
+      return () => {
+        socket.close();
+      };
+    });
   }, []);
 
   return (

@@ -10,7 +10,6 @@ export const parseCameraData = (frame, canvasRef) => {
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
 
-    // Create a new image object and load the base64-encoded frame data
     const img = new Image();
 
     // Once the image is loaded, draw it onto the canvas

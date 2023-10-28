@@ -24,7 +24,16 @@ function App() {
                 {/* Define the routes for the app using the Routes component */}
                 {/* Add all paths here */}
                 <Routes>
-                  <Route exact path="/" element={<CameraView />} />
+                  <Route
+                    exact
+                    path="/"
+                    element={<h1>ooeoeoeoeoeoeoeoeoe</h1>}
+                  />
+                  <Route
+                    exact
+                    path="/management"
+                    element={<h1>management ooeoeoeoeoeoeoeoeoe</h1>}
+                  />
                   <Route path="/cameras" element={<CameraView />} />
                 </Routes>
               </Col>

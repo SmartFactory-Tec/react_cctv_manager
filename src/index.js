@@ -7,11 +7,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/styles/global.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+
+// <React.StrictMode/> Disabled due to testing issues
+root.render(<App />);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
