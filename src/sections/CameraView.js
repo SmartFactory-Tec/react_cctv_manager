@@ -76,7 +76,7 @@ const CameraView = () => {
       {isLoading ? (
         <Col
           className="text-center spinner-column"
-          style={{ color: "#525E6D !important" }}
+          style={{ color: "#19323c !important" }}
         >
           <Spinner />
           <p style={{ fontSize: "22px", fontWeight: "600" }} className="mt-2">

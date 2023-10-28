@@ -1,6 +1,8 @@
 .dashboard-container {
   height: 100vh;
   width: 100vw !important;
+
+  background-color: #f7f8fc;
 }
 
 body {

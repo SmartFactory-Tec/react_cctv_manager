@@ -14,7 +14,7 @@ import "./Sidebar.css";
 
 const DashboardSidebar = () => {
   return (
-    <Sidebar className="h-100 w-100" backgroundColor="#19323C">
+    <Sidebar className="h-100 w-100" backgroundColor="#fff">
       <Menu
         className="py-4"
         menuItemStyles={{
@@ -22,7 +22,8 @@ const DashboardSidebar = () => {
             // The active class will be added automatically by react router
             // so we can use it to style the active menu item
             [`&.active`]: {
-              color: "#fff !important",
+              color: "white !important",
+              backgroundColor: "#B72530 !important",
             },
           },
         }}
@@ -39,7 +40,7 @@ const DashboardSidebar = () => {
           <Col className="align-items-center justify-content-center">
             <p
               className="mb-0 ps-3"
-              style={{ fontWeight: 600, color: "white", fontSize: "20px" }}
+              style={{ fontWeight: 700, color: "#19323c", fontSize: "20px" }}
             >
               Smart
               <br />
@@ -48,47 +49,23 @@ const DashboardSidebar = () => {
           </Col>
         </Row>
 
-        <hr style={{ color: "#F6F0ED" }} className="mx-3" />
+        <hr style={{ color: "#19323c" }} className="mx-3" />
 
         <MenuItem component={<NavLink to="/cameras" />}>
-          <Row>
-            <Col xs={1}>
-              <FontAwesomeIcon icon={faCamera} />
-            </Col>
-            <Col xs={11} className="ps-4">
-              Cameras
-            </Col>
-          </Row>
+          <FontAwesomeIcon icon={faCamera} className="me-3" />
+          Cameras
         </MenuItem>
         <MenuItem component={<NavLink to="/management" />}>
-          <Row>
-            <Col xs={1}>
-              <FontAwesomeIcon icon={faPersonWalking} />
-            </Col>
-            <Col xs={11} className="ps-4">
-              Management
-            </Col>
-          </Row>
+          <FontAwesomeIcon icon={faPersonWalking} className="me-3" />
+          Management
         </MenuItem>
         <MenuItem component={<NavLink to="/authentication" />}>
-          <Row>
-            <Col xs={1}>
-              <FontAwesomeIcon icon={faLock} />
-            </Col>
-            <Col xs={11} className="ps-4">
-              Authentication
-            </Col>
-          </Row>
+          <FontAwesomeIcon icon={faLock} className="me-3" />
+          Authentication
         </MenuItem>
         <MenuItem component={<NavLink to="/history" />}>
-          <Row>
-            <Col xs={1}>
-              <FontAwesomeIcon icon={faChartSimple} />
-            </Col>
-            <Col xs={11} className="ps-4">
-              History
-            </Col>
-          </Row>
+          <FontAwesomeIcon icon={faChartSimple} className="me-3" />
+          History
         </MenuItem>
       </Menu>
     </Sidebar>

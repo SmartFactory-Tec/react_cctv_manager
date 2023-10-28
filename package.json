@@ -13,6 +13,7 @@
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.0",
+    "react-bootstrap-table-next": "^4.0.3",
     "react-dom": "^18.2.0",
     "react-pro-sidebar": "^1.1.0-alpha.1",
     "react-router-dom": "^6.17.0",

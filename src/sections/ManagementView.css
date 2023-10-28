@@ -1,0 +1,29 @@
+.custom-header th {
+  background-color: #fff !important;
+  color: #19323c !important;
+
+  font-weight: 700 !important;
+}
+
+.react-bootstrap-table {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+}
+
+.custom-table td {
+  vertical-align: middle;
+}
+
+.react-bootstrap-table table {
+  margin-bottom: 0px;
+}
+
+.icon-button {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.table-title {
+  font-weight: 600;
+}
