@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Row, Col, Spinner } from "react-bootstrap";
 import { parseCameraData } from "../utils/apiUtils";
+import { websocketHostUrl } from "../services/config";
 
 import CameraCanvas from "../components/camera/CameraCanvas.js";
 import "./CameraView.css";
+import { getStreamURLs } from "../services/apiService";
 
 const CameraView = () => {
   const [cameraData, setCameraData] = useState([]);
@@ -26,28 +28,39 @@ const CameraView = () => {
   }, [cameraData]);
 
   useEffect(() => {
-    // TODO Get URLs from a GET request to the database
-    const ids = [0, 1, 2, 3];
+    const fetchStreams = async () => {
+      try {
+        const streamUrlList = await getStreamURLs();
 
-    ids.forEach((id) => {
-      const socket = new WebSocket(`ws://127.0.0.1:8000/ws/router/${id}/`);
+        const ids = streamUrlList.map((stream) => stream.camera_id);
 
-      socket.onmessage = (event) => {
-        // Parse the JSON data
-        const data = JSON.parse(event.data);
+        console.log(ids);
 
-        setCameraData((prevData) => {
-          const newData = [...prevData];
-          newData[data.camera_id] = data;
-          return newData;
+        ids.forEach((id) => {
+          const socket = new WebSocket(`${websocketHostUrl}/ws/stream/${id}/`);
+
+          socket.onmessage = (event) => {
+            // Parse the JSON data
+            const data = JSON.parse(event.data);
+
+            setCameraData((prevData) => {
+              const newData = [...prevData];
+              newData[data.camera_id] = data;
+              return newData;
+            });
+          };
+
+          // Close the WebSocket connection when the component is unmounted
+          return () => {
+            socket.close();
+          };
         });
-      };
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-      // Close the WebSocket connection when the component is unmounted
-      return () => {
-        socket.close();
-      };
-    });
+    fetchStreams();
   }, []);
 
   return (
