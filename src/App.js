@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // Import components for the app
 import DashboardSidebar from "./components/sidebar/Sidebar";
 import CameraView from "./sections/CameraView";
+import ManagementView from "./sections/ManagementView";
 
 function App() {
   return (
@@ -32,7 +33,7 @@ function App() {
                   <Route
                     exact
                     path="/management"
-                    element={<h1>management ooeoeoeoeoeoeoeoeoe</h1>}
+                    element={<ManagementView />}
                   />
                   <Route path="/cameras" element={<CameraView />} />
                 </Routes>
