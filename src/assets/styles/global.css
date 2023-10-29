@@ -14,3 +14,7 @@ h3 {
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
 }
+
+.btn {
+  border-radius: 16px !important;
+}

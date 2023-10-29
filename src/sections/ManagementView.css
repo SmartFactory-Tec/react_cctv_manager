@@ -3,16 +3,19 @@
   color: #19323c !important;
 
   font-weight: 700 !important;
+  padding: 8px 16px !important;
 }
 
 .react-bootstrap-table {
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+
+  border: 1px solid #c5ccce;
 }
 
 .custom-table td {
   vertical-align: middle;
+  padding: 12px 12px !important;
 }
 
 .react-bootstrap-table table {

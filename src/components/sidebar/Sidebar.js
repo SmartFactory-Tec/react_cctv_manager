@@ -24,32 +24,35 @@ const DashboardSidebar = () => {
             [`&.active`]: {
               color: "white !important",
               backgroundColor: "#B72530 !important",
+              boxSizing: "border-box",
             },
           },
         }}
       >
-        <Row className="d-flex align-items-center justify-content-center mb-4">
-          <Col xs={3} className="align-items-center justify-content-center">
-            <img
-              src={sf_logo}
-              className="px-3  sidebar-brand"
-              style={{ maxHeight: "70px" }}
-              alt="sf_logo.png"
-            />
-          </Col>
-          <Col className="align-items-center justify-content-center">
+        <div
+          style={{ display: "flex", alignItems: "center" }}
+          className="w-100 mb-3"
+        >
+          <img
+            src={sf_logo}
+            className="ms-3 me-2 sidebar-brand"
+            style={{ height: "50px" }}
+            alt="sf_logo.png"
+          />
+
+          <div style={{ display: "inline-block" }}>
             <p
-              className="mb-0 ps-3"
-              style={{ fontWeight: 700, color: "#19323c", fontSize: "20px" }}
+              className="mb-0 ps-0"
+              style={{ fontWeight: 700, color: "#19323c", fontSize: "16px" }}
             >
               Smart
               <br />
               Factory
             </p>
-          </Col>
-        </Row>
+          </div>
+        </div>
 
-        <hr style={{ color: "#19323c" }} className="mx-3" />
+        {/* <hr style={{ color: "#19323c" }} className="mx-0" /> */}
 
         <MenuItem component={<NavLink to="/cameras" />}>
           <FontAwesomeIcon icon={faCamera} className="me-3" />

@@ -86,7 +86,12 @@ const ManagementView = () => {
     {
       dataField: "camera_id",
       text: "ID",
-      sort: true,
+      align: "center",
+      headerAlign: "center",
+      style: { fontWeight: "bold" },
+      headerStyle: () => {
+        return { width: "4em", align: "center" }; // Adjust the width to fit the content accurately
+      },
     },
     { dataField: "camera_name", text: "Name" },
     { dataField: "camera_location", text: "Location" },
@@ -109,6 +114,7 @@ const ManagementView = () => {
         <Col xs={6}>
           <h2 className="table-title pb-2">Cameras</h2>
         </Col>
+
         <Col xs={6} className="text-end">
           <h2 className="table-title pb-2">
             <Button>
@@ -118,6 +124,7 @@ const ManagementView = () => {
           </h2>
         </Col>
       </Row>
+
       <BootstrapTable
         headerClasses="custom-header"
         classes="custom-table"

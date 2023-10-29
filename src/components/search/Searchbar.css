@@ -1,0 +1,20 @@
+.searchbar {
+  border-top-right-radius: 16px !important;
+  border-bottom-right-radius: 16px !important;
+  border: none !important;
+  background-color: white !important;
+}
+
+.searchbar-bg {
+  background-color: #ffffff !important  ;
+  border-bottom: 1px solid #c5ccce !important;
+}
+
+.rounded-button {
+  border-radius: 50% !important;
+  border: none !important;
+}
+
+.rounded-button:hover {
+    background-color: #0d6efd !important;
+}
