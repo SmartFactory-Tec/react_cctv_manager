@@ -2,8 +2,12 @@
   height: 100vh;
   width: 100vw !important;
 
-  background-color: #f7f8fc;
+  background-color: #fff;
 }
+
+/*
+    background-color: #f7f8fc;
+*/
 
 body {
   font-family: "Poppins", sans-serif !important;

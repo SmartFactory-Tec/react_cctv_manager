@@ -1,3 +1,33 @@
+h2 {
+  font-weight: 600 !important;
+}
+
+.form-label {
+  font-weight: 600 !important;
+}
+
+.form-control {
+  border-radius: 16px !important;
+}
+
+.form-select {
+  border-radius: 16px !important;
+}
+
+.section-label-required {
+  color: #b72530;
+  font-weight: 700;
+}
+
+.section-title {
+  margin-top: 12px;
+  margin-bottom: 16px;
+}
+
+.submit-button {
+  margin-top: 16px;
+}
+
 .custom-header th {
   background-color: #fff !important;
   color: #19323c !important;

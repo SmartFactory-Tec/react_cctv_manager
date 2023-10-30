@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal, Row, Col } from "react-bootstrap";
 
-import { getStreamURLs } from "../services/apiService";
+import { handleCameraApiRequest } from "../../services/apiService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAdd,
   faTrash,
   faEdit,
   faEye,
+  faCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import BootstrapTable from "react-bootstrap-table-next";
-import { statusFormatter } from "./ManagementViewFormatters";
 
 import "./ManagementView.css";
 
@@ -26,12 +26,33 @@ const ManagementView = () => {
     setShowDeleteModal(false);
   };
 
+  /**
+   * Retrieves a random camera status from a predefined list of statuses.
+   * @returns {string} - A random camera status.
+   */
+  const getRandomStatus = () => {
+    const statuses = ["online", "offline", "inactive", "unknown"];
+    const randomIndex = Math.floor(Math.random() * statuses.length);
+    return statuses[randomIndex];
+  };
+
   useEffect(() => {
+    /**
+     * Asynchronous function to fetch camera data from the server and update the camera data.
+     */
     const fetchCameraData = async () => {
       try {
-        const data = await getStreamURLs();
-        console.log(data);
-        setCameraData(data ? data : []);
+        // Retrieve camera data from the server.
+        const { data } = await handleCameraApiRequest("GET");
+
+        // Iterate through the data and update the camera status for each entry.
+        const updatedData = data.map((camera) => ({
+          ...camera,
+          camera_status: getRandomStatus(),
+        }));
+
+        // Set the camera data state to the updated data, or an empty array if the data is unavailable.
+        setCameraData(updatedData || []);
       } catch (error) {
         console.error(error);
       }
@@ -82,6 +103,66 @@ const ManagementView = () => {
     );
   };
 
+  /**
+   * Formats the status for each camera in the table.
+   * Renders a status icon along with the corresponding status text.
+   * @param {any} cell - The cell value.
+   * @param {object} row - The row data object.
+   * @returns {JSX.Element} - JSX elements representing the camera status with an icon.
+   */
+  const statusFormatter = (cell, row) => {
+    const { camera_status } = row;
+
+    // Switch statement to determine the appropriate styling and text based on the camera status
+    switch (camera_status) {
+      case "online":
+        return (
+          <p className="mb-0 pb-0">
+            <FontAwesomeIcon
+              icon={faCircle}
+              size="2xs"
+              className="me-2 text-success"
+            />
+            Online
+          </p>
+        );
+      case "offline":
+        return (
+          <p className="mb-0 pb-0">
+            <FontAwesomeIcon
+              icon={faCircle}
+              size="2xs"
+              className="me-2 text-danger"
+            />
+            Offline
+          </p>
+        );
+      case "inactive":
+        return (
+          <p className="mb-0 pb-0">
+            <FontAwesomeIcon
+              icon={faCircle}
+              size="2xs"
+              className="me-2 text-secondary"
+            />
+            Inactive
+          </p>
+        );
+      default:
+        // Default case when the camera status is not recognized
+        return (
+          <p className="mb-0 pb-0">
+            <FontAwesomeIcon
+              icon={faCircle}
+              size="2xs"
+              className="me-2 text-secondary"
+            />
+            Unkown
+          </p>
+        );
+    }
+  };
+
   const columns = [
     {
       dataField: "camera_id",
@@ -89,14 +170,16 @@ const ManagementView = () => {
       align: "center",
       headerAlign: "center",
       style: { fontWeight: "bold" },
-      headerStyle: () => {
-        return { width: "4em", align: "center" }; // Adjust the width to fit the content accurately
-      },
+      headerStyle: { width: "4em", textAlign: "center" },
     },
     { dataField: "camera_name", text: "Name" },
     { dataField: "camera_location", text: "Location" },
     { dataField: "camera_url", text: "Stream URL" },
-    { dataField: "camera_status", text: "Status", formatter: statusFormatter },
+    {
+      dataField: "camera_status",
+      text: "Status",
+      formatter: statusFormatter,
+    },
     {
       dataField: "actions",
       text: "",
@@ -110,6 +193,7 @@ const ManagementView = () => {
 
   return (
     <div>
+      {/* Row component for displaying the header */}
       <Row>
         <Col xs={6}>
           <h2 className="table-title pb-2">Cameras</h2>
@@ -124,7 +208,7 @@ const ManagementView = () => {
           </h2>
         </Col>
       </Row>
-
+      {/* BootstrapTable component for displaying camera data */}
       <BootstrapTable
         headerClasses="custom-header"
         classes="custom-table"
@@ -133,8 +217,7 @@ const ManagementView = () => {
         data={cameraData}
         columns={columns}
       />
-
-      {/* ACTION MODALS */}
+      {/* Modal component for handling camera deletion */}
       <>
         <Modal
           show={showDeleteModal}
