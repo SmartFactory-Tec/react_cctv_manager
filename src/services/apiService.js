@@ -55,3 +55,43 @@ export const handleCameraApiRequest = (
       throw err;
     });
 };
+
+/**
+ * Handles person requests to the backend server.
+ * @param {string} method - The HTTP method for the request (e.g., GET, POST, PUT, DELETE).
+ * @param {string} recordId - The ID of the person record, if applicable.
+ * @param {object} data - The data to be sent in the request, if applicable.
+ * @returns {Promise} - A promise representing the completion of the request.
+ */
+export const handlePersonApiRequest = (
+  method,
+  recordId = undefined,
+  data = undefined
+) => {
+  let url = `${backendHostUrl}/api/people/`;
+
+  // Append the record ID to the URL if it exists
+  if (recordId !== undefined && recordId !== null) {
+    url += `${recordId}/`;
+  }
+
+  // Construct the request options with the appropriate headers and body
+  const requestOptions = {
+    method: method,
+    headers: { "Content-Type": "application/json" },
+    body: data ? JSON.stringify(data) : null,
+  };
+
+  return fetch(url, requestOptions)
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Network response was not ok.");
+      }
+
+      return res.json().then((data) => ({ ...data, status: res.status }));
+    })
+    .catch((err) => {
+      console.error("Person Request Error:", err.message);
+      throw err;
+    });
+};

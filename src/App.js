@@ -12,6 +12,7 @@ import CameraView from "./sections/CameraView";
 import ManagementView from "./sections/ManagementView/ManagementView";
 import Searchbar from "./components/search/Searchbar";
 import ManagementCameraEditView from "./sections/ManagementView/ManagementCameraEditView";
+import ManagementPeopleEditView from "./sections/ManagementView/ManagementPeopleEditView";
 
 function App() {
   return (
@@ -51,8 +52,8 @@ function App() {
                       />
                       <Route
                         exact
-                        path="/management/persons/edit/:person_id"
-                        element={<ManagementView />}
+                        path="/management/people/edit/:person_id"
+                        element={<ManagementPeopleEditView />}
                       />
                       <Route path="/cameras" element={<CameraView />} />
                     </Routes>
