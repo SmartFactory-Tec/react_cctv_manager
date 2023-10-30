@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Modal, Row, Col } from "react-bootstrap";
+import { Button, Modal, Row, Col, Form } from "react-bootstrap";
 
 import { handleCameraApiRequest } from "../../services/apiService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,16 +7,30 @@ import {
   faAdd,
   faTrash,
   faEdit,
-  faEye,
+  // faEye,
   faCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import BootstrapTable from "react-bootstrap-table-next";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import "./ManagementView.css";
 
 const ManagementView = () => {
+  const navigate = useNavigate();
+
   const [cameraData, setCameraData] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+
+  const [cameraToDelete, setCameraToDelete] = useState({});
+  const [cameraToCreate, setCameraToCreate] = useState({
+    camera_url: "",
+    camera_name: "",
+    camera_id: "",
+    camera_status: "",
+    camera_location: "",
+  });
 
   const handleDeleteCameraModalOpen = () => {
     setShowDeleteModal(true);
@@ -24,6 +38,14 @@ const ManagementView = () => {
 
   const handleDeleteCameraModalClose = () => {
     setShowDeleteModal(false);
+  };
+
+  const handleCreateCameraModalClose = () => {
+    setShowCreateModal(false);
+  };
+
+  const handleCreateCameraModalOpen = () => {
+    setShowCreateModal(true);
   };
 
   /**
@@ -36,29 +58,69 @@ const ManagementView = () => {
     return statuses[randomIndex];
   };
 
-  useEffect(() => {
-    /**
-     * Asynchronous function to fetch camera data from the server and update the camera data.
-     */
-    const fetchCameraData = async () => {
-      try {
-        // Retrieve camera data from the server.
-        const { data } = await handleCameraApiRequest("GET");
+  /**
+   * Asynchronous function to fetch camera data from the server and update the camera data.
+   */
+  const fetchCameraData = async () => {
+    try {
+      const { data } = await handleCameraApiRequest("GET");
 
-        // Iterate through the data and update the camera status for each entry.
-        const updatedData = data.map((camera) => ({
-          ...camera,
-          camera_status: getRandomStatus(),
-        }));
+      // Iterate through the data and update the camera status for each entry.
+      const updatedData = data.map((camera) => ({
+        ...camera,
+        camera_status: getRandomStatus(),
+      }));
 
-        // Set the camera data state to the updated data, or an empty array if the data is unavailable.
-        setCameraData(updatedData || []);
-      } catch (error) {
-        console.error(error);
+      setCameraData(updatedData || []);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /** Handles the deletion of a camera
+   * @param {string} id: The ID of the camera to be deleted
+   * @param {string} name: The name of the camera to be deleted
+   */
+  const handleCameraDeletion = async (id, name) => {
+    try {
+      const request = await handleCameraApiRequest("DELETE", id, null);
+
+      if (request.status === 200) {
+        toast.success("Camera deleted successfully.");
+        fetchCameraData();
       }
-    };
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
+  // Update form data based on user input
+  const handleFormChange = (e) => {
+    const { id, value } = e.target;
+    setCameraToCreate({ ...cameraToCreate, [id]: value });
+  };
+
+  const submitCameraCreateForm = async (e) => {
+    e.preventDefault();
+
+    try {
+      const request = await handleCameraApiRequest("POST", null, {
+        camera_id: cameraToCreate.camera_id,
+        camera_url: cameraToCreate.camera_url,
+        camera_location: cameraToCreate.camera_location,
+        camera_name: cameraToCreate.camera_name,
+      });
+
+      console.log(request);
+    } catch (error) {
+      console.error(error);
+      toast.error(error);
+    }
+  };
+
+  useEffect(() => {
     fetchCameraData();
+    // eslint-disable-next-line
   }, []);
 
   /**
@@ -71,6 +133,7 @@ const ManagementView = () => {
     return (
       <>
         {/* Button for viewing camera details */}
+        {/*
         <Button
           className="icon-button text-secondary"
           onClick={() => {
@@ -79,21 +142,22 @@ const ManagementView = () => {
         >
           <FontAwesomeIcon icon={faEye} />
         </Button>
+        */}
 
         {/* Button for editing camera details */}
         <Button
           className="icon-button text-secondary"
           onClick={() => {
-            handleDeleteCameraModalOpen();
+            navigate(`/management/cameras/edit/${row.camera_id}`);
           }}
         >
           <FontAwesomeIcon icon={faEdit} />
         </Button>
 
-        {/* Button for deleting a camera */}
         <Button
           className="icon-button text-danger"
           onClick={() => {
+            setCameraToDelete(row);
             handleDeleteCameraModalOpen();
           }}
         >
@@ -113,7 +177,6 @@ const ManagementView = () => {
   const statusFormatter = (cell, row) => {
     const { camera_status } = row;
 
-    // Switch statement to determine the appropriate styling and text based on the camera status
     switch (camera_status) {
       case "online":
         return (
@@ -201,7 +264,7 @@ const ManagementView = () => {
 
         <Col xs={6} className="text-end">
           <h2 className="table-title pb-2">
-            <Button>
+            <Button onClick={() => handleCreateCameraModalOpen()}>
               <FontAwesomeIcon icon={faAdd} className="me-2" />
               Add Camera
             </Button>
@@ -212,11 +275,12 @@ const ManagementView = () => {
       <BootstrapTable
         headerClasses="custom-header"
         classes="custom-table"
-        keyField="id"
+        keyField="camera_id"
         bordered={false}
         data={cameraData}
         columns={columns}
       />
+
       {/* Modal component for handling camera deletion */}
       <>
         <Modal
@@ -229,7 +293,10 @@ const ManagementView = () => {
           <Modal.Header closeButton>
             <Modal.Title>Delete Camera</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+          <Modal.Body>
+            Are you sure you want to delete{" "}
+            <strong>{cameraToDelete.camera_name}</strong>?
+          </Modal.Body>
           <Modal.Footer>
             <Button
               variant="secondary"
@@ -243,11 +310,109 @@ const ManagementView = () => {
               variant="danger"
               onClick={() => {
                 handleDeleteCameraModalClose();
+                handleCameraDeletion(
+                  cameraToDelete.camera_id,
+                  cameraToDelete.camera_name
+                );
               }}
             >
-              Save Changes
+              Confirm
             </Button>
           </Modal.Footer>
+        </Modal>
+      </>
+
+      {/* Modal component for creating a camera */}
+      <>
+        <Modal
+          show={showCreateModal}
+          onHide={() => {
+            handleCreateCameraModalClose();
+          }}
+          centered
+        >
+          <Form
+            onSubmit={(e) => {
+              submitCameraCreateForm(e);
+            }}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Create Camera</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form.Group className="mb-3" controlId="camera_id">
+                <Form.Label>
+                  Camera ID <span className="section-label-required">*</span>
+                </Form.Label>
+                <Form.Control
+                  required
+                  type="text"
+                  value={cameraToCreate.camera_id}
+                  onChange={handleFormChange}
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="camera_name">
+                <Form.Label>
+                  Camera Name <span className="section-label-required">*</span>
+                </Form.Label>
+                <Form.Control
+                  required
+                  type="text"
+                  value={cameraToCreate.camera_name}
+                  onChange={handleFormChange}
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="camera_location">
+                <Form.Label>
+                  Camera Location{" "}
+                  <span className="section-label-required">*</span>
+                </Form.Label>
+                <Form.Control
+                  required
+                  type="text"
+                  value={cameraToCreate.camera_location}
+                  onChange={handleFormChange}
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="camera_status">
+                <Form.Label>Camera Status</Form.Label>
+                <Form.Select
+                  value={cameraToCreate.camera_status}
+                  onChange={handleFormChange}
+                >
+                  <option value="cameraToCreate.online">Online</option>
+                  <option value="cameraToCreate.offline">Offline</option>
+                  <option value="cameraToCreate.inactive">Inactive</option>
+                  <option value="cameraToCreate.unknown">Unknown</option>
+                </Form.Select>
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="camera_url">
+                <Form.Label>Camera URL</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={cameraToCreate.camera_url}
+                  onChange={handleFormChange}
+                />
+              </Form.Group>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  handleCreateCameraModalClose();
+                }}
+              >
+                Close
+              </Button>
+              <Button variant="primary" type="submit">
+                Confirm
+              </Button>
+            </Modal.Footer>{" "}
+          </Form>
         </Modal>
       </>
     </div>
