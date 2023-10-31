@@ -277,6 +277,7 @@ const ManagementPeopleComponent = () => {
                     required
                     readOnly
                     type="text"
+                    placeholder="Enter person ID..."
                     value={personToCreate.id}
                     onChange={handleFormChange}
                   />
@@ -289,6 +290,7 @@ const ManagementPeopleComponent = () => {
                   <Form.Control
                     required
                     type="text"
+                    placeholder="Enter first name..."
                     value={personToCreate.first_name}
                     onChange={handleFormChange}
                   />
@@ -301,6 +303,7 @@ const ManagementPeopleComponent = () => {
                   <Form.Control
                     required
                     type="text"
+                    placeholder="Enter last name..."
                     value={personToCreate.last_name}
                     onChange={handleFormChange}
                   />
@@ -310,6 +313,7 @@ const ManagementPeopleComponent = () => {
                   <Form.Label>E-mail</Form.Label>
                   <Form.Control
                     type="text"
+                    placeholder="Enter e-mail..."
                     value={personToCreate.email}
                     onChange={handleFormChange}
                   />
@@ -321,6 +325,7 @@ const ManagementPeopleComponent = () => {
                   </Form.Label>
                   <Form.Control
                     type="text"
+                    placeholder="Enter Tec ID..."
                     value={personToCreate.tec_id}
                     onChange={handleFormChange}
                   />
@@ -330,6 +335,7 @@ const ManagementPeopleComponent = () => {
                   <Form.Label>Major</Form.Label>
                   <Form.Control
                     type="text"
+                    placeholder="Enter major..."
                     value={personToCreate.major}
                     onChange={handleFormChange}
                   />
@@ -339,6 +345,7 @@ const ManagementPeopleComponent = () => {
                   <Form.Label>Phone Number</Form.Label>
                   <Form.Control
                     type="text"
+                    placeholder="Enter phone number..."
                     value={personToCreate.phone_number}
                     onChange={handleFormChange}
                   />

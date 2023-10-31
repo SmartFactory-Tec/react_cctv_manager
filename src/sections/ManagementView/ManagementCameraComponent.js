@@ -362,6 +362,7 @@ const ManagementCameraComponent = () => {
                   <Form.Control
                     required
                     type="text"
+                    placeholder={"Enter camera ID..."}
                     value={cameraToCreate.camera_id}
                     onChange={handleFormChange}
                   />
@@ -375,6 +376,7 @@ const ManagementCameraComponent = () => {
                   <Form.Control
                     required
                     type="text"
+                    placeholder="Enter camera name..."
                     value={cameraToCreate.camera_name}
                     onChange={handleFormChange}
                   />
@@ -388,6 +390,7 @@ const ManagementCameraComponent = () => {
                   <Form.Control
                     required
                     type="text"
+                    placeholder="Enter camera location..."
                     value={cameraToCreate.camera_location}
                     onChange={handleFormChange}
                   />
@@ -410,6 +413,7 @@ const ManagementCameraComponent = () => {
                   <Form.Label>Camera URL</Form.Label>
                   <Form.Control
                     type="text"
+                    placeholder="Enter camera URL..."
                     value={cameraToCreate.camera_url}
                     onChange={handleFormChange}
                   />
