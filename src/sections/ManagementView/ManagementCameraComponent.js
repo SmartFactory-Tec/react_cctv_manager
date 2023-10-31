@@ -185,7 +185,7 @@ const ManagementCameraComponent = () => {
     switch (camera_status) {
       case "online":
         return (
-          <p className="mb-0 pb-0">
+          <p className="mb-0 pb-0 px-2 custom-pill border-success text-success">
             <FontAwesomeIcon
               icon={faCircle}
               size="2xs"
@@ -196,7 +196,7 @@ const ManagementCameraComponent = () => {
         );
       case "offline":
         return (
-          <p className="mb-0 pb-0">
+          <p className="mb-0 pb-0 px-2 custom-pill border-danger text-danger">
             <FontAwesomeIcon
               icon={faCircle}
               size="2xs"
@@ -207,7 +207,7 @@ const ManagementCameraComponent = () => {
         );
       case "inactive":
         return (
-          <p className="mb-0 pb-0">
+          <p className="mb-0 pb-0 px-2 custom-pill border-secondary text-secondary">
             <FontAwesomeIcon
               icon={faCircle}
               size="2xs"
@@ -219,7 +219,7 @@ const ManagementCameraComponent = () => {
       default:
         // Default case when the camera status is not recognized
         return (
-          <p className="mb-0 pb-0">
+          <p className="mb-0 pb-0 px-2 custom-pill border-secondary text-secondary">
             <FontAwesomeIcon
               icon={faCircle}
               size="2xs"
@@ -241,13 +241,13 @@ const ManagementCameraComponent = () => {
       headerStyle: { width: "4em", textAlign: "center" },
     },
     { dataField: "camera_name", text: "Name" },
-    { dataField: "camera_location", text: "Location" },
-    { dataField: "camera_url", text: "Stream URL" },
     {
       dataField: "camera_status",
       text: "Status",
       formatter: statusFormatter,
     },
+    { dataField: "camera_location", text: "Location" },
+    { dataField: "camera_url", text: "Stream URL" },
     {
       dataField: "actions",
       text: "",
@@ -269,7 +269,8 @@ const ManagementCameraComponent = () => {
 
           <Col xs={6} className="text-end">
             <Button
-              variant="primary-outline" className="me-2"
+              variant="primary-outline"
+              className="me-2"
               onClick={() => toast.info("Not available yet!")}
             >
               <FontAwesomeIcon icon={faDownload} className="me-2" />

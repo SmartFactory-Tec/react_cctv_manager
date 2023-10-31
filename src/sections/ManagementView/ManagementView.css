@@ -10,6 +10,11 @@ h2 {
   border-radius: 8px !important;
 }
 
+.badge {
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+}
+
 .form-select {
   border-radius: 8px !important;
 }
@@ -59,4 +64,11 @@ h2 {
 
 .table-title {
   font-weight: 700 !important;
+}
+
+.custom-pill {
+  display: inline-block;
+  border-radius: 16px !important;
+  border: 2px solid !important;
+  font-weight: 500 !important;
 }
