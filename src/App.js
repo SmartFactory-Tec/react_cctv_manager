@@ -20,16 +20,19 @@ function App() {
       <header className="App-header">
         {/* Set up the Router for enabling routing in the app */}
         <Router>
-          <Container fluid className="d-flex p-0 dashboard-container" >
+          <Container fluid className="d-flex p-0 dashboard-container">
             <DashboardSidebar />
 
-            <Row className="g-0 w-100">
-              <Col xs={12}>
+            <Row className="g-0 w-100 align-items-start justify-content-center">
+              <Col
+                xs={12}
+                className="d-flex flex-column p-4 align-items-start align-self-start"
+              >
                 <Searchbar />
-              </Col>
-              <Col xs={12} className="py-3 px-4">
+
                 {/* Define the routes for the app using the Routes component */}
                 {/* Add all paths here */}
+                <span className="mt-4" />
                 <Routes>
                   <Route
                     exact
