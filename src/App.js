@@ -20,47 +20,42 @@ function App() {
       <header className="App-header">
         {/* Set up the Router for enabling routing in the app */}
         <Router>
-          <Container fluid className="dashboard-container d-flex pe-0">
-            <Row className="w-100 h-100">
-              <Col xs={2} className="h-100 p-0">
-                <DashboardSidebar />
-              </Col>
+          <Container fluid className="d-flex p-0 dashboard-container" >
+            <DashboardSidebar />
 
-              <Col xs={10} className="p-0">
-                <Row className="g-0">
-                  <Col xs={12}>
-                    <Searchbar />
-                  </Col>
-                  <Col xs={12} className="py-3 px-4">
-                    {/* Define the routes for the app using the Routes component */}
-                    {/* Add all paths here */}
-                    <Routes>
-                      <Route
-                        exact
-                        path="/"
-                        element={<h1>ooeoeoeoeoeoeoeoeoe</h1>}
-                      />
-                      <Route
-                        exact
-                        path="/management"
-                        element={<ManagementView />}
-                      />
-                      <Route
-                        exact
-                        path="/management/cameras/edit/:camera_id"
-                        element={<ManagementCameraEditView />}
-                      />
-                      <Route
-                        exact
-                        path="/management/people/edit/:person_id"
-                        element={<ManagementPeopleEditView />}
-                      />
-                      <Route path="/cameras" element={<CameraView />} />
-                    </Routes>
-                  </Col>
-                </Row>
+            <Row className="g-0 w-100">
+              <Col xs={12}>
+                <Searchbar />
+              </Col>
+              <Col xs={12} className="py-3 px-4">
+                {/* Define the routes for the app using the Routes component */}
+                {/* Add all paths here */}
+                <Routes>
+                  <Route
+                    exact
+                    path="/"
+                    element={<h1>ooeoeoeoeoeoeoeoeoe</h1>}
+                  />
+                  <Route
+                    exact
+                    path="/management"
+                    element={<ManagementView />}
+                  />
+                  <Route
+                    exact
+                    path="/management/cameras/edit/:camera_id"
+                    element={<ManagementCameraEditView />}
+                  />
+                  <Route
+                    exact
+                    path="/management/people/edit/:person_id"
+                    element={<ManagementPeopleEditView />}
+                  />
+                  <Route path="/cameras" element={<CameraView />} />
+                </Routes>
               </Col>
             </Row>
+
             <ToastContainer
               position="bottom-right"
               autoClose={3000}
