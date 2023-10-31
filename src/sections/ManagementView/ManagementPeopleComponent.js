@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import "./ManagementView.css";
+import { downloadCSV, generateTimestamp } from "../../utils/utils";
 
 const ManagementPeopleComponent = () => {
   const navigate = useNavigate();
@@ -182,7 +183,9 @@ const ManagementPeopleComponent = () => {
             <Button
               variant="primary-outline"
               className="me-2"
-              onClick={() => toast.info("Not available yet!")}
+              onClick={() =>
+                downloadCSV(peopleData, `people-${generateTimestamp()}`)
+              }
             >
               <FontAwesomeIcon icon={faDownload} className="me-2" />
               Download CSV

@@ -12,6 +12,10 @@ $btn-font-weight: 500; // Set the button font weight
   border: 1px solid #171717 !important;
 }
 
+.btn-primary:hover {
+  background-color: #444 !important;
+}
+
 .modal-dialog h4 {
   font-weight: 700;
 }

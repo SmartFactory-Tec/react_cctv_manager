@@ -12,6 +12,7 @@ import {
   faDownload,
 } from "@fortawesome/free-solid-svg-icons";
 import BootstrapTable from "react-bootstrap-table-next";
+import { downloadCSV, generateTimestamp } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -271,7 +272,9 @@ const ManagementCameraComponent = () => {
             <Button
               variant="primary-outline"
               className="me-2"
-              onClick={() => toast.info("Not available yet!")}
+              onClick={() =>
+                downloadCSV(cameraData, `cameras-${generateTimestamp()}`)
+              }
             >
               <FontAwesomeIcon icon={faDownload} className="me-2" />
               Download CSV
