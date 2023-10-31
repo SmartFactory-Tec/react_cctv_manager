@@ -1,0 +1,16 @@
+/* The following block can be included in a custom.scss */
+
+/* make the customizations */
+$theme-colors: (
+  "primary": #171717,
+  "danger": #b72530,
+);
+
+$btn-font-weight: 500; // Set the button font weight
+
+.btn-primary-outline {
+  border: 1px solid #171717 !important;
+}
+
+/* import bootstrap to set changes */
+@import "~bootstrap/scss/bootstrap";

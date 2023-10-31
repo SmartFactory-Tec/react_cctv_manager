@@ -3,7 +3,12 @@ import { Button, Modal, Row, Col, Form } from "react-bootstrap";
 
 import { handlePersonApiRequest } from "../../services/apiService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAdd, faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAdd,
+  faTrash,
+  faEdit,
+  faDownload,
+} from "@fortawesome/free-solid-svg-icons";
 import BootstrapTable from "react-bootstrap-table-next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -93,7 +98,7 @@ const ManagementPeopleComponent = () => {
 
       if (request.status === 201) {
         toast.success("Person created successfully!");
-        setShowCreateModal(false)
+        setShowCreateModal(false);
         fetchPeopleData();
       }
     } catch (error) {
@@ -133,7 +138,7 @@ const ManagementPeopleComponent = () => {
             handleDeletePersonModalOpen();
           }}
         >
-          <FontAwesomeIcon icon={faTrash} />
+          <FontAwesomeIcon icon={faTrash} className="trash-icon" />
         </Button>
       </>
     );
@@ -174,12 +179,21 @@ const ManagementPeopleComponent = () => {
           </Col>
 
           <Col xs={6} className="text-end">
-            <h2 className="table-title pb-2">
-              <Button onClick={() => handleCreatePersonModalOpen()}>
-                <FontAwesomeIcon icon={faAdd} className="me-2" />
-                Add Person
-              </Button>
-            </h2>
+            <Button
+              variant="primary-outline"
+              className="me-2"
+              onClick={() => toast.info("Not available yet!")}
+            >
+              <FontAwesomeIcon icon={faDownload} className="me-2" />
+              Download CSV
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => handleCreatePersonModalOpen()}
+            >
+              <FontAwesomeIcon icon={faAdd} className="me-2" />
+              Add Person
+            </Button>
           </Col>
         </Row>
 

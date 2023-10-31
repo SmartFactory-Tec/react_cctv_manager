@@ -1,12 +1,13 @@
 .ps-sidebar-container {
   border-radius: 0px;
   border-right: 1px solid #c5ccce;
+
 }
 
 .css-1wvake5 {
   width: auto !important;
   min-width: 100% !important;
-  border-radius: 16px !important;
+  border-radius: 8px !important;
 }
 
 .ps-menu-button {
@@ -16,7 +17,7 @@
 
   padding: 0px 16px !important;
   margin: 0px 16px !important;
-  border-radius: 16px !important;
+  border-radius: 8px !important;
 
   transition: all 0.2s ease-in-out;
 }
@@ -26,5 +27,5 @@
 }
 
 .sidebar-brand {
-  border-radius: 16px;
+  border-radius: 8px;
 }

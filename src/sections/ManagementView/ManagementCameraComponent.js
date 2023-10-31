@@ -9,6 +9,7 @@ import {
   faEdit,
   // faEye,
   faCircle,
+  faDownload,
 } from "@fortawesome/free-solid-svg-icons";
 import BootstrapTable from "react-bootstrap-table-next";
 import { useNavigate } from "react-router-dom";
@@ -165,7 +166,7 @@ const ManagementCameraComponent = () => {
             handleDeleteCameraModalOpen();
           }}
         >
-          <FontAwesomeIcon icon={faTrash} />
+          <FontAwesomeIcon icon={faTrash} className="trash-icon" />
         </Button>
       </>
     );
@@ -261,20 +262,26 @@ const ManagementCameraComponent = () => {
   return (
     <div>
       <div>
-        {/*--------------------- CAMERAS -----------------------*/}
-
         <Row>
           <Col xs={6}>
             <h2 className="table-title pb-2">Cameras</h2>
           </Col>
 
           <Col xs={6} className="text-end">
-            <h2 className="table-title pb-2">
-              <Button onClick={() => handleCreateCameraModalOpen()}>
-                <FontAwesomeIcon icon={faAdd} className="me-2" />
-                Add Camera
-              </Button>
-            </h2>
+            <Button
+              variant="primary-outline" className="me-2"
+              onClick={() => toast.info("Not available yet!")}
+            >
+              <FontAwesomeIcon icon={faDownload} className="me-2" />
+              Download CSV
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => handleCreateCameraModalOpen()}
+            >
+              <FontAwesomeIcon icon={faAdd} className="me-2" />
+              Add Camera
+            </Button>
           </Col>
         </Row>
 

@@ -22,7 +22,7 @@ const DashboardSidebar = () => {
             // so we can use it to style the active menu item
             [`&.active`]: {
               color: "white !important",
-              backgroundColor: "#B72530 !important",
+              backgroundColor: "#171717 !important",
               boxSizing: "border-box",
             },
           },

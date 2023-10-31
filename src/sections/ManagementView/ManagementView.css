@@ -7,11 +7,11 @@ h2 {
 }
 
 .form-control {
-  border-radius: 16px !important;
+  border-radius: 8px !important;
 }
 
 .form-select {
-  border-radius: 16px !important;
+  border-radius: 8px !important;
 }
 
 .section-label-required {
@@ -37,7 +37,7 @@ h2 {
 }
 
 .react-bootstrap-table {
-  border-radius: 16px;
+  border-radius: 8px;
   overflow: hidden;
 
   border: 1px solid #c5ccce;
@@ -58,5 +58,5 @@ h2 {
 }
 
 .table-title {
-  font-weight: 600;
+  font-weight: 700 !important;
 }
