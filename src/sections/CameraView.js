@@ -12,6 +12,7 @@ const CameraView = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const canvasRefs = useRef([]);
+  const socketsRef = useRef([]);
 
   useEffect(() => {
     // Update the loading state based on whether cameraData is empty or not
@@ -50,10 +51,7 @@ const CameraView = () => {
             });
           };
 
-          // Close the WebSocket connection when the component is unmounted
-          return () => {
-            socket.close();
-          };
+          socketsRef.current.push(socket);
         });
       } catch (error) {
         console.error(error);
@@ -61,6 +59,13 @@ const CameraView = () => {
     };
 
     fetchStreams();
+
+    // Return the cleanup function to close all WebSocket connections
+    return () => {
+      // This throws a warning for some reason
+      // eslint-disable-next-line
+      socketsRef.current.forEach((socket) => socket.close());
+    };
   }, []);
 
   return (

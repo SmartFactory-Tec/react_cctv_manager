@@ -18,7 +18,7 @@ export const parseCameraData = (frame, canvasRef) => {
     };
 
     // Set the image source to the base64-encoded frame data
-    img.src = `data:image/jpeg;base64,${frame}`;
+    img.src = `data:image/jpg;base64,${frame}`;
   } catch (error) {
     console.error(error);
   }

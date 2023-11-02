@@ -51,16 +51,6 @@ const ManagementCameraComponent = () => {
   };
 
   /**
-   * Retrieves a random camera status from a predefined list of statuses.
-   * @returns {string} - A random camera status.
-   */
-  const getRandomStatus = () => {
-    const statuses = ["online", "offline", "inactive", "unknown"];
-    const randomIndex = Math.floor(Math.random() * statuses.length);
-    return statuses[randomIndex];
-  };
-
-  /**
    * Asynchronous function to fetch camera data from the server and update the camera data.
    */
   const fetchCameraData = async () => {
@@ -70,7 +60,6 @@ const ManagementCameraComponent = () => {
       // Iterate through the data and update the camera status for each entry.
       const updatedData = data.map((camera) => ({
         ...camera,
-        camera_status: getRandomStatus(),
       }));
 
       setCameraData(updatedData || []);

@@ -23,7 +23,10 @@ function App() {
           <Container fluid className="d-flex p-0 dashboard-container">
             <DashboardSidebar />
 
-            <Row className="g-0 w-100 align-items-start justify-content-center">
+            <Row
+              className="g-0 w-100 align-items-start justify-content-center"
+              style={{ position: "sticky", overflow: "auto" }}
+            >
               <Col
                 xs={12}
                 className="d-flex flex-column p-4 align-items-start align-self-start"
@@ -34,11 +37,7 @@ function App() {
                 {/* Add all paths here */}
                 <span className="mt-4" />
                 <Routes>
-                  <Route
-                    exact
-                    path="/"
-                    element={<h1>ooeoeoeoeoeoeoeoeoe</h1>}
-                  />
+                  <Route path="/cameras" element={<CameraView />} />
                   <Route
                     exact
                     path="/management"
@@ -54,7 +53,6 @@ function App() {
                     path="/management/people/edit/:person_id"
                     element={<ManagementPeopleEditView />}
                   />
-                  <Route path="/cameras" element={<CameraView />} />
                 </Routes>
               </Col>
             </Row>
