@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { Row, Col, Button, Form } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import { handleCameraApiRequest } from "../../services/apiService";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
+import { handleCameraApiRequest } from "../../services/apiService";
 
 import "./ManagementView.css";
 
@@ -19,12 +19,12 @@ const ManagementCameraEditView = () => {
     camera_location: "",
   });
 
-  // Fetch camera data from the API on component mount
+  // Fetches camera data from the API upon component mounting
   useEffect(() => {
     const fetchCameraData = async () => {
       try {
         const { data, status } = await handleCameraApiRequest("GET", camera_id);
-        console.info("Promise completed | Status:", status);
+        console.info("Camera data fetch successful. Status:", status);
         setCameraData(data);
       } catch (error) {
         console.error("Error fetching camera data: ", error);
@@ -40,28 +40,35 @@ const ManagementCameraEditView = () => {
     setCameraData({ ...cameraData, [id]: value });
   };
 
-  // Update the camera information via API call when Form is submitted
+  // Update the camera information via API call when the form is submitted
   const submitForm = async (e) => {
     e.preventDefault();
 
     try {
+      const requestData = {
+        camera_url: cameraData.camera_url,
+        camera_location: cameraData.camera_location,
+        camera_name: cameraData.camera_name,
+      };
+
       const request = await handleCameraApiRequest(
         "PUT",
         cameraData.camera_id,
-        {
-          camera_url: cameraData.camera_url,
-          camera_location: cameraData.camera_location,
-          camera_name: cameraData.camera_name,
-        }
+        requestData
       );
 
       // Check for a successful response and redirect the user
       if (request.status === 200) {
-        toast.success("Camera data updated correctly!");
+        toast.success("Camera data updated successfully!");
         navigate("/management");
+      } else {
+        throw new Error(
+          "Failed to update camera data. Status code: " + request.status
+        );
       }
     } catch (error) {
-      console.error(error);
+      console.error("An error occurred while updating camera data: ", error);
+      toast.error("Failed to update camera data. Please try again.");
     }
   };
 

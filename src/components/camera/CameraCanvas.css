@@ -1,3 +1,8 @@
 canvas {
   width: 100%;
 }
+
+.camera-card {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 15px 0px !important;
+  border-radius: 12px !important;
+}

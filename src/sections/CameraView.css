@@ -1,3 +1,7 @@
 .spinner-column {
   color: #19323c !important;
 }
+
+.camera-select-card-container {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 15px 0px !important;
+}

@@ -15,7 +15,7 @@ import sf_logo from "../../assets/images/sf_logo.png";
 import "./Sidebar.css";
 
 const DashboardSidebar = () => {
-  const [collapsed, setCollapsed] = React.useState(false);
+  const [collapsed, setCollapsed] = useState(false);
 
   return (
     <div>
@@ -77,13 +77,13 @@ const DashboardSidebar = () => {
             component={<NavLink to="/authentication" />}
             icon={<FontAwesomeIcon icon={faLock} />}
           >
-            Authentication
+            Security
           </MenuItem>
           <MenuItem
             component={<NavLink to="/history" />}
             icon={<FontAwesomeIcon icon={faChartSimple} />}
           >
-            History
+            Activity Log
           </MenuItem>
         </Menu>
 

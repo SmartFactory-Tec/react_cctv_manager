@@ -1,0 +1,11 @@
+.camera-select-card {
+  background-color: transparent;
+  font-weight: 600;
+
+  transition: all 0.2s linear;
+}
+
+.camera-select-card:hover {
+  cursor: pointer;
+  background-color: #f0f0f0;
+}

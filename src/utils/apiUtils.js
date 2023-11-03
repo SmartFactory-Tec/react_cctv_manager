@@ -1,9 +1,9 @@
 /**
- * Parse and render camera frame data onto the canvas.
+ * Render camera frame data onto the canvas.
  * @param {string} frame - The camera frame data in base64 format.
  * @param {Object} canvasRef - Reference to the canvas element.
  */
-export const parseCameraData = (frame, canvasRef) => {
+export const renderCameraFrame = (frame, canvasRef) => {
   try {
     // Retrieve the canvas element from the provided reference
     const canvas = canvasRef;

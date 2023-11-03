@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Button, Modal, Row, Col, Form } from "react-bootstrap";
-
-import { handleCameraApiRequest } from "../../services/apiService";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAdd,
   faTrash,
   faEdit,
-  // faEye,
   faCircle,
   faDownload,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, Modal, Row, Col, Form } from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
-import { downloadCSV, generateTimestamp } from "../../utils/utils";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
+import { handleCameraApiRequest } from "../../services/apiService";
+import { downloadCSV, generateTimestamp } from "../../utils/utils";
 
 import "./ManagementView.css";
 
@@ -103,16 +102,16 @@ const ManagementCameraComponent = () => {
       });
 
       if (request.status === 201) {
+        console.info("Camera created successfully.");
         toast.success("Camera created successfully!");
         setShowCreateModal(false);
         fetchCameraData();
       }
     } catch (error) {
-      console.error(error);
-      toast.error(error);
+      console.error("Failed to create camera: ", error);
+      toast.error("Failed to create camera. Please try again.");
     }
   };
-
   useEffect(() => {
     fetchCameraData();
     // eslint-disable-next-line
@@ -127,19 +126,6 @@ const ManagementCameraComponent = () => {
   const actionsFormatter = (cell, row) => {
     return (
       <>
-        {/* Button for viewing camera details */}
-        {/*
-        <Button
-          className="icon-button text-secondary"
-          onClick={() => {
-            handleDeleteCameraModalOpen();
-          }}
-        >
-          <FontAwesomeIcon icon={faEye} />
-        </Button>
-        */}
-
-        {/* Button for editing camera details */}
         <Button
           className="icon-button text-secondary"
           onClick={() => {
