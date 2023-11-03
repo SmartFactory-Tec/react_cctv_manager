@@ -3,46 +3,46 @@ export const convertArrayOfObjectsToCSV = (array) => {
   let result = "";
   const columnDelimiter = ",";
   const lineDelimiter = "\n";
-  const keys = Object.keys(array[0]); // Extract keys from the first object
+  const keys = Object.keys(array[0]);
 
-  // Join the keys with column delimiter and add a line delimiter
-  result += keys.join(columnDelimiter);
-  result += lineDelimiter;
+  result += keys.join(columnDelimiter) + lineDelimiter;
 
   array.forEach((item) => {
     let ctr = 0;
     keys.forEach((key) => {
-      if (ctr > 0) result += columnDelimiter; // Add column delimiter if not the first column
-
-      result += item[key]; // Add the value of the current key
+      if (ctr > 0) result += columnDelimiter;
+      result += item[key];
       ctr++;
     });
-    result += lineDelimiter; // Add line delimiter after each object
+    result += lineDelimiter;
   });
 
-  return result; // Return the CSV string
+  return result;
 };
 
 // Download a CSV file
 export const downloadCSV = (array, filename) => {
   const csv = convertArrayOfObjectsToCSV(array);
-  const exportedFilename = filename + ".csv" || "export.csv";
+  const exportedFilename = filename ? `${filename}.csv` : 'export.csv';
 
-  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" }); // Create a Blob with the CSV data
+  const csvData = new TextEncoder('utf-8').encode('\uFEFF' + csv); // BOM character for UTF-8
+
+  const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+
   if (navigator.msSaveBlob) {
-    // For Internet Explorer
     navigator.msSaveBlob(blob, exportedFilename);
   } else {
-    // For other browsers
-    const link = document.createElement("a"); // Create a link element
+    const link = document.createElement('a');
+
     if (link.download !== undefined) {
-      const url = URL.createObjectURL(blob); // Create a URL for the Blob
-      link.setAttribute("href", url);
-      link.setAttribute("download", exportedFilename); // Set the download attribute
-      link.style.visibility = "hidden";
-      document.body.appendChild(link); // Append the link to the document body
+      const url = URL.createObjectURL(blob);
+
+      link.setAttribute('href', url);
+      link.setAttribute('download', exportedFilename);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link); // Remove the link from the document body after download
+      document.body.removeChild(link);
     }
   }
 };
@@ -51,25 +51,12 @@ export const downloadCSV = (array, filename) => {
 export const generateTimestamp = () => {
   const now = new Date();
   const year = now.getFullYear();
-  let month = now.getMonth() + 1;
-  if (month < 10) {
-    month = `0${month}`;
-  }
-  let day = now.getDate();
-  if (day < 10) {
-    day = `0${day}`;
-  }
-  let hours = now.getHours();
-  if (hours < 10) {
-    hours = `0${hours}`;
-  }
-  let minutes = now.getMinutes();
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
-  let seconds = now.getSeconds();
-  if (seconds < 10) {
-    seconds = `0${seconds}`;
-  }
+
+  let month = String(now.getMonth() + 1).padStart(2, "0");
+  let day = String(now.getDate()).padStart(2, "0");
+  let hours = String(now.getHours()).padStart(2, "0");
+  let minutes = String(now.getMinutes()).padStart(2, "0");
+  let seconds = String(now.getSeconds()).padStart(2, "0");
+  
   return `${year}${month}${day}_${hours}${minutes}${seconds}`;
 };
