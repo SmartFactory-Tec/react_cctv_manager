@@ -27,7 +27,7 @@ const CameraView = () => {
 
     if (selectedCamera !== undefined && selectedCamera !== null) {
       dataToUse = cameraData.filter(
-        (camera) => camera.camera_id === selectedCamera
+        (camera) => camera?.camera_id === selectedCamera
       );
     } else {
       dataToUse = cameraData;
@@ -103,7 +103,7 @@ const CameraView = () => {
               <CameraSelectCard
                 {...camera}
                 onClick={() => {
-                  setSelectedCamera(camera.camera_id);
+                  setSelectedCamera(camera?.camera_id);
                 }}
               />
               {i !== cameraData.length - 1 && (
@@ -125,18 +125,18 @@ const CameraView = () => {
               return (
                 <Col xs={6} key={i}>
                   <CameraCanvas
-                    cameraData={camera}
+                    {...camera}
                     innerRef={(ref) => {
                       canvasRefs.current[i] = ref;
                     }}
                   />
                 </Col>
               );
-            } else if (selectedCamera === camera.camera_id) {
+            } else if (selectedCamera === camera?.camera_id) {
               return (
                 <Col xs={12} key={i}>
                   <CameraCanvas
-                    cameraData={camera}
+                    {...camera}
                     innerRef={(ref) => {
                       canvasRefs.current[i] = ref;
                     }}

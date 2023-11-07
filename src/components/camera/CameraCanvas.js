@@ -2,8 +2,7 @@ import React from "react";
 import { Card } from "react-bootstrap";
 import "./CameraCanvas.css";
 
-const CameraCanvas = ({ innerRef, cameraData, i }) => {
-  const { camera_name, camera_id } = cameraData;
+const CameraCanvas = ({ camera_id, camera_name, innerRef, i }) => {
 
   return (
     <div>

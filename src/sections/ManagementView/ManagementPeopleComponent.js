@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Modal, Row, Col, Form } from "react-bootstrap";
 
-import { handlePersonApiRequest } from "../../services/apiService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAdd,
@@ -9,12 +7,15 @@ import {
   faEdit,
   faDownload,
 } from "@fortawesome/free-solid-svg-icons";
+import { Button, Modal, Row, Col, Form } from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import "./ManagementView.css";
+import { handlePersonApiRequest } from "../../services/apiService";
 import { downloadCSV, generateTimestamp } from "../../utils/utils";
+
+import "./ManagementView.css";
 
 const ManagementPeopleComponent = () => {
   const navigate = useNavigate();

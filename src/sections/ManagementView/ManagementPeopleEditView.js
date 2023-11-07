@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
+
+import { useParams, useNavigate } from "react-router-dom";
 import { Row, Col, Button, Form } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import { handlePersonApiRequest } from "../../services/apiService";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
+import { handlePersonApiRequest } from "../../services/apiService";
 
 import "./ManagementView.css";
 

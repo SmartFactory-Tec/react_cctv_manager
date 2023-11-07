@@ -1,6 +1,8 @@
 import React from "react";
+
 import { faTableCellsLarge, faVideo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import "./CameraSelectCard.css";
 
 const CameraSelectCard = ({
